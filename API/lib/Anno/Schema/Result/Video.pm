@@ -19,7 +19,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("video_id");
 
 __PACKAGE__->has_many(
-    "video_comments",
+    "comments",
     "Anno::Schema::Result::VideoComments",
     "video_id"
 );
