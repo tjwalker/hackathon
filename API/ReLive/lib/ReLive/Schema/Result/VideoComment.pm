@@ -20,7 +20,7 @@ __PACKAGE__->add_columns(
     {data_type => "integer", is_nullable => 0},
 );
 
-__PACKAGE__->set_primary_key("user_id", "video_id", "time_stamp");
+__PACKAGE__->set_primary_key("user_id", "video_id", "created_at");
 
 __PACKAGE__->belongs_to( user => "ReLive::Schema::Result::User", "user_id" );
 __PACKAGE__->belongs_to( video => "ReLive::Schema::Result::Video", "video_id" );
