@@ -40,6 +40,23 @@ get '/comments/:video_id/:time' => sub {
     return $params{jsonpcallback} . '(' . $json->allow_blessed(1)->convert_blessed(1)->encode($comments) . ');';
 };
 
+
+post '/comments/:video_id/:time' => sub {
+    my $schema = schema 'ReLive';
+    my $rs = $schema->resultset('VideoComment');
+
+    $rs->create({
+        comment     => params->{comment},
+        user_id     => params->{user_id},
+        video_id    => param("video_id"),
+        time        => param("time"),
+        created_at  => time(),
+    });
+
+    return params->{jsonpcallback} . '(1);';
+};
+
+
 get '/example' => sub {
     {
         comments => [
