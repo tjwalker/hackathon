@@ -31,4 +31,4 @@ plugins:
     DBIC:
         ReLive:
             schema_class: ReLive::Schema
-            dsn: "dbi:SQLite:dbname=../ReLive.db"
+            dsn: "dbi:SQLite:dbname=ReLive.db"

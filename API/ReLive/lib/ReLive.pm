@@ -1,4 +1,5 @@
 package ReLive;
+use JSON::XS;
 use Dancer ':syntax';
 use Dancer::Plugin::DBIC;
 
@@ -10,6 +11,51 @@ our $VERSION = '0.1';
 get '/' => sub {
     template 'index';
 };
+
+get '/comments/:video_id/:time' => sub {
+    my $json = JSON::XS->new();
+    my $schema = schema 'ReLive';
+    my $rs = $schema->resultset('VideoComment')->search({
+        "me.video_id" => param("video_id"),
+    },
+    {
+        join    => ['user', 'video'],
+        page    => 1,
+        rows    => 30,
+    });
+
+    my %params = params("query");
+
+    my $comments;
+
+    while(my $item = $rs->next()) {
+        push @$comments, {
+            comment     => $item->comment,
+            created_at  => $item->created_at,
+            time        => $item->time,
+            name        => $item->user->name,
+        };
+    }
+
+    return $params{jsonpcallback} . '(' . $json->allow_blessed(1)->convert_blessed(1)->encode($comments) . ');';
+};
+
+
+post '/comments/:video_id/:time' => sub {
+    my $schema = schema 'ReLive';
+    my $rs = $schema->resultset('VideoComment');
+
+    $rs->create({
+        comment     => params->{comment},
+        user_id     => params->{user_id},
+        video_id    => param("video_id"),
+        time        => param("time"),
+        created_at  => time(),
+    });
+
+    return params->{jsonpcallback} . '(1);';
+};
+
 
 get '/example' => sub {
     {
