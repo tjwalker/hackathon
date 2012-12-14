@@ -25,4 +25,5 @@ __PACKAGE__->set_primary_key("user_id", "video_id", "created_at");
 __PACKAGE__->belongs_to( user => "ReLive::Schema::Result::User", "user_id" );
 __PACKAGE__->belongs_to( video => "ReLive::Schema::Result::Video", "video_id" );
 
+
 1;
