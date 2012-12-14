@@ -1,5 +1,5 @@
 use utf8;
-package Anno::Schema::Result::Video;
+package ReLive::Schema::Result::Video;
 
 use strict;
 use warnings;
@@ -20,7 +20,7 @@ __PACKAGE__->set_primary_key("video_id");
 
 __PACKAGE__->has_many(
     "comments",
-    "Anno::Schema::Result::VideoComments",
+    "ReLive::Schema::Result::VideoComment",
     "video_id"
 );
 
