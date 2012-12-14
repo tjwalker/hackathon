@@ -16,12 +16,15 @@ get '/comments/:video_id/:time' => sub {
     my $json = JSON::XS->new();
     my $schema = schema 'ReLive';
     my $rs = $schema->resultset('VideoComment')->search({
-        video_id => param("video_id"),
+        "me.video_id" => param("video_id"),
     },
     {
-        page => 1,
-        rows => 30,
+        join    => ['user', 'video'],
+        page    => 1,
+        rows    => 30,
     });
+
+    my %params = params("query");
 
     my $comments;
 
@@ -30,10 +33,11 @@ get '/comments/:video_id/:time' => sub {
             comment     => $item->comment,
             created_at  => $item->created_at,
             time        => $item->time,
+            name        => $item->user->name,
         };
     }
 
-    return $json->allow_blessed(1)->convert_blessed(1)->encode($comments);
+    return $params{jsonpcallback} . '(' . $json->allow_blessed(1)->convert_blessed(1)->encode($comments) . ');';
 };
 
 get '/example' => sub {
