@@ -14,16 +14,15 @@ __PACKAGE__->add_columns(
     {data_type => "char", is_nullable => 0, size => 255},
     "comment",
     {data_type => "char", is_nullable => 0, size => 512},
-    "time_stamp",
-    {data_type => "datetime", is_nullable => 0},
+    "created_at",
+    {data_type => "integer", is_nullable => 0},
     "time",
-    {data_type => "int", is_nullable => 0},
+    {data_type => "integer", is_nullable => 0},
 );
 
-__PACKAGE__->set_primary_key("user_id", "video_id", "time");
+__PACKAGE__->set_primary_key("user_id", "video_id", "time_stamp");
 
 __PACKAGE__->belongs_to( user => "ReLive::Schema::Result::User", "user_id" );
 __PACKAGE__->belongs_to( video => "ReLive::Schema::Result::Video", "video_id" );
-
 
 1;
