@@ -1,7 +1,8 @@
 package ReLive;
 use Dancer ':syntax';
-set serializer => 'JSON';
+use Dancer::Plugin::DBIC;
 
+set serializer => 'JSON';
 set port => "80";
 
 our $VERSION = '0.1';

@@ -27,3 +27,8 @@ template: "simple"
 #     start_tag: '[%'
 #     end_tag:   '%]'
 
+plugins:
+    DBIC:
+        ReLive:
+            schema_class: ReLive::Schema
+            dsn: "dbi:SQLite:dbname=../ReLive.db"
