@@ -1,5 +1,5 @@
 use utf8;
-package Anno::Schema;
+package ReLive::Schema;
 
 use strict;
 use warnings;
