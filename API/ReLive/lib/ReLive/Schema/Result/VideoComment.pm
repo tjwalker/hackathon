@@ -14,6 +14,8 @@ __PACKAGE__->add_columns(
     {data_type => "char", is_nullable => 0, size => 255},
     "comment",
     {data_type => "char", is_nullable => 0, size => 512},
+    "time_stamp",
+    {data_type => "datetime", is_nullable => 0},
     "time",
     {data_type => "int", is_nullable => 0},
 );
