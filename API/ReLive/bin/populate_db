@@ -1,0 +1,41 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use lib '../lib';
+use ReLive::Schema;
+
+my $schema = ReLive::Schema->connect("dbi:SQLite:dbname=../ReLive.db;host=localhost", '', '', {});
+
+print "Adding users\n";
+my @users;
+push @users, ['Trevor', 'http://grfx.cstv.com/photos/schools/tex/sports/m-footbl/auto_headshot/2178239.jpeg'];
+push @users, ['Jack', 'http://a2.twimg.com/profile_images/190343141/Me_In_Cutters_reasonably_small.jpg'];
+push @users, ['Wei', 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn1/c33.33.414.414/s160x160/66014_4267793287665_502628674_n.jpg'];
+push @users, ['Stuart', 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRY7N56f9tV9cuCnpvaIAOUhSUjVszuk0smPgrqLIxRNPMSOw5n'];
+
+$schema->populate('User', [
+    ['name', 'image'],
+    @users,
+]);
+
+
+print "Adding videos\n";
+my @videos;
+push @videos, ['1234', 'Some title'];
+push @videos, ['1235', 'Some other title, whatever'];
+
+$schema->populate('Video', [
+    ['video_id', 'title'],
+    @videos,
+]);
+
+
+print "Adding comments\n";
+my @comments;
+push @comments, [1, 1234, 'z0mg did that just happen?!/?!111one', '1355487170', 50];
+push @comments, [2, 1234, 'It was all a dream. How very Dallas.', '1355487170', 70];
+
+$schema->populate('VideoComment', [
+    ['user_id', 'video_id', 'comment', 'created_at', 'time'],
+    @comments,
+]);
