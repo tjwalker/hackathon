@@ -1,0 +1,9 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use lib '../lib';
+use lib 'lib';
+use ReLive::Schema;
+
+my $schema = ReLive::Schema->connect("dbi:SQLite:dbname=../ReLive.db;host=localhost", '', '', {});
+$schema->deploy({add_drop_table => 1});
